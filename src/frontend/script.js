@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const name = document.getElementById('name').value;
         const content = canvas.toDataURL(); // Convert canvas to image data URL
 
-        await fetch('http://localhost:5000/animations/', {
+        await fetch('https://flip.loca.lt/animations/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
     async function loadAnimations() {
         animationsDiv.innerHTML = '';
 
-        const response = await fetch('http://localhost:5000/animations');
+        const response = await fetch('https://flip.loca.lt/animations');
         const animations = await response.json();
 
         animations.forEach(animation => {
