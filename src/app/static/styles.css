@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+canvas {
+    border: 1px solid #000;
+    display: block;
+    margin: 0 auto;
+}
+
+.controls {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.color-picker {
+    display: flex; /* Muestra los colores en fila */
+    justify-content: center; /* Centra los colores en la pantalla */
+    margin: 10px 0;
+}
+
+.color-option {
+    width: 30px;  /* Ancho del cuadrado */
+    height: 30px; /* Altura del cuadrado */
+    margin: 0 5px; /* Espaciado entre los colores */
+    cursor: pointer;
+    border: 2px solid transparent; /* Borde transparente por defecto */
+    transition: border 0.3s; /* Transición suave al seleccionar */
+}
+
+.color-option.selected {
+    border: 2px solid black; /* Resalta el color seleccionado */
+}
+
+#lineWidth {
+    width: 100px;
+}
+
+button {
+    margin: 10px 5px;
+}

@@ -1,13 +1,14 @@
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+let painting = false;
+let brushColor = 'black'; // Color por defecto
+let lineWidth = 2; // Ancho por defecto
+
 document.addEventListener("DOMContentLoaded", function() {
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
     const saveButton = document.getElementById('saveButton');
     const clearButton = document.getElementById('clearButton');
-    const colorPicker = document.getElementById('colorPicker');
     const lineWidthInput = document.getElementById('lineWidth');
     const animationsDiv = document.getElementById('animations');
-
-    let drawing = false;
 
     // Event listeners for drawing
     canvas.addEventListener('mousedown', startDrawing);
@@ -48,21 +49,21 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function startDrawing(e) {
-        drawing = true;
+        painting = true;
         draw(e); // Draw immediately to avoid gaps
     }
 
     function stopDrawing() {
-        drawing = false;
+        painting = false;
         ctx.beginPath(); // Reset the path to avoid connecting lines
     }
 
     function draw(e) {
-        if (!drawing) return;
+        if (!painting) return;
 
-        ctx.lineWidth = lineWidthInput.value; // Set line width from input
+        ctx.lineWidth = lineWidth; // Set line width from input
         ctx.lineCap = 'round';
-        ctx.strokeStyle = colorPicker.value; // Set color from color picker
+        ctx.strokeStyle = brushColor; // Set color from brushColor variable
 
         // Draw line to the current mouse position
         ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
@@ -74,4 +75,22 @@ document.addEventListener("DOMContentLoaded", function() {
     function clearCanvas() {
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the entire canvas
     }
+
+    // Selector de tamaño de línea
+    lineWidthInput.addEventListener('input', (e) => {
+        lineWidth = e.target.value; // Actualiza el ancho del trazo
+    });
+
+    // Seleccionar color de la lista de colores
+    const colorOptions = document.querySelectorAll('.color-option');
+    colorOptions.forEach(option => {
+        option.addEventListener('click', (e) => {
+            // Remover selección previa
+            colorOptions.forEach(opt => opt.classList.remove('selected'));
+            // Añadir selección actual
+            e.target.classList.add('selected');
+            // Cambiar color del pincel
+            brushColor = e.target.getAttribute('data-color'); // Actualiza brushColor
+        });
+    });
 });
